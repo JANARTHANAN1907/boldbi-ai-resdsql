@@ -1,10 +1,11 @@
 import json
 from torch.utils.data import Dataset
+import ast
 
 class ColumnAndTableClassifierDataset(Dataset):
     def __init__(
         self,
-        dir_: str = None,
+        json_content: str = None,
         use_contents: bool = True,
         add_fk_info: bool = True,
     ):
@@ -18,8 +19,7 @@ class ColumnAndTableClassifierDataset(Dataset):
         self.all_table_names: list[list[str]] = []
         self.all_table_labels: list[list[int]] = []
         
-        with open(dir_, 'r', encoding = 'utf-8') as f:
-            dataset = json.load(f)
+        dataset = ast.literal_eval(json_content)
         
         for data in dataset:
             column_names_in_one_db = []
@@ -112,7 +112,7 @@ class ColumnAndTableClassifierDataset(Dataset):
 class Text2SQLDataset(Dataset):
     def __init__(
         self,
-        dir_: str,
+        dataset: [],
         mode: str
     ):
         super(Text2SQLDataset).__init__()
@@ -124,8 +124,6 @@ class Text2SQLDataset(Dataset):
         self.db_ids: list[str] = []
         self.all_tc_original: list[list[str]] = []
 
-        with open(dir_, 'r', encoding = 'utf-8') as f:
-            dataset = json.load(f)
         
         for data in dataset:
             self.input_sequences.append(data["input_sequence"])
