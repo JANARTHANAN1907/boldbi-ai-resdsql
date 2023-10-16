@@ -3,7 +3,7 @@ import sqlite3
 
 from difflib import SequenceMatcher
 from NatSQL.natsql_utils import natsql_to_sql
-from func_timeout import func_set_timeout, FunctionTimedOut
+#from func_timeout import func_set_timeout, FunctionTimedOut
 from sql_metadata import Parser
 
 def find_most_similar_sequence(source_sequence, target_sequences):
@@ -128,7 +128,7 @@ def get_cursor_from_path(sqlite_path):
     return cursor
 
 # execute predicted sql with a time limitation
-@func_set_timeout(120)
+#@func_set_timeout(120)
 def execute_sql(cursor, sql):
     cursor.execute(sql)
 
@@ -187,10 +187,10 @@ def decode_natsqls(
                 print(e)
                 cursor.close()
                 cursor.connection.close()
-            except FunctionTimedOut as fto:
-                print(pred_sql)
-                print(fto)
-                del cursor
+            # except FunctionTimedOut as fto:
+            #     print(pred_sql)
+            #     print(fto)
+            #     del cursor
         
         final_sqls.append(pred_executable_sql)
     
@@ -239,10 +239,10 @@ def decode_sqls(
                 print(e)
                 cursor.close()
                 cursor.connection.close()
-            except FunctionTimedOut as fto:
-                print(pred_sql)
-                print(fto)
-                del cursor
+            # except FunctionTimedOut as fto:
+            #     print(pred_sql)
+            #     print(fto)
+            #     del cursor
         
         final_sqls.append(pred_executable_sql)
     
