@@ -1,1 +1,1 @@
-# boldbi-ai-resdsql
+# private_resdsql
